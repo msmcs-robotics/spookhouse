@@ -1,0 +1,3 @@
+[submodule "breathing_brain"]
+	path = breathing_brain
+	url = https://github.com/msmcs-robotics/breathing_brain.git
