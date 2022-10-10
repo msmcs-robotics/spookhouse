@@ -14,32 +14,37 @@
  
 */
 
-int relay_pin1 = 6;
-int relay_pin2 = 7;
-int relay_pin3 = 8;
+struct {
+  int relay_pin1 = 6;
+  int relay_pin2 = 7;
+  int relay_pin3 = 8;
+} pins;
 
-int min_btw_pop = 3;
-int max_btw_pop = 10;
+struct {
+  int min_btw_pop = 3;
+  int max_btw_pop = 10;
 
-float min_len_pop = 0.5;
-float max_len_pop = 2;
+  float min_len_pop = 0.5;
+  float max_len_pop = 2;  
+} info;
+
 
 float rand_btw_pop() {
-  float rand_value = random((min_btw_pop * 1000), (max_btw_pop * 1000));
+  float rand_value = random((info.min_btw_pop * 1000), (info.max_btw_pop * 1000));
   return rand_value;
 };
 
 float rand_len_pop() {
-  float rand_value = random((min_len_pop * 1000), (max_len_pop * 1000));
+  float rand_value = random((info.min_len_pop * 1000), (info.max_len_pop * 1000));
   return rand_value;
 };
 
 
 void setup() {
   // put your setup code here, to run once:
-   pinMode(relay_pin1, OUTPUT);
-   pinMode(relay_pin2, OUTPUT);
-   pinMode(relay_pin3, OUTPUT);
+   pinMode(pins.relay_pin1, OUTPUT);
+   pinMode(pins.relay_pin2, OUTPUT);
+   pinMode(pins.relay_pin3, OUTPUT);
    delay(5000);
 }
 
@@ -51,19 +56,19 @@ void loop() {
 
   
   if (pick_pin == 1) {
-    digitalWrite(relay_pin1, HIGH);
+    digitalWrite(pins.relay_pin1, HIGH);
     delay(len_pop);
-    digitalWrite(relay_pin1, LOW);
+    digitalWrite(pins.relay_pin1, LOW);
     delay(btw_pop);
   } else if (pick_pin == 2) {
-    digitalWrite(relay_pin2, HIGH);
+    digitalWrite(pins.relay_pin2, HIGH);
     delay(len_pop);
-    digitalWrite(relay_pin2, LOW);
+    digitalWrite(pins.relay_pin2, LOW);
     delay(btw_pop);
   } else if (pick_pin == 3) {
-    digitalWrite(relay_pin3, HIGH);
+    digitalWrite(pins.relay_pin3, HIGH);
     delay(len_pop);
-    digitalWrite(relay_pin3, LOW);
+    digitalWrite(pins.relay_pin3, LOW);
     delay(btw_pop);
   };
 
