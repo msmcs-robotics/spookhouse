@@ -15,33 +15,45 @@
 */
 
 struct {
+  int led_pin = 13;
+
   int relay_pin1 = 6;
   int relay_pin2 = 7;
   int relay_pin3 = 8;
 } pins;
 
+
 struct {
   int min_btw_pop = 3;
   int max_btw_pop = 10;
 
-  float min_len_pop = 0.5;
-  float max_len_pop = 2;  
+  int min_len_pop = 2;
+  int max_len_pop = 5;
 } info;
 
-
-float rand_btw_pop() {
-  float rand_value = random((info.min_btw_pop * 1000), (info.max_btw_pop * 1000));
+int rand_btw_pop() {
+  int rand_value = random(info.min_btw_pop, info.max_btw_pop);
   return rand_value;
 };
 
-float rand_len_pop() {
-  float rand_value = random((info.min_len_pop * 1000), (info.max_len_pop * 1000));
+int rand_len_pop() {
+  int rand_value = random(info.min_len_pop, info.max_len_pop);
   return rand_value;
 };
 
+
+void blink(int num_blinks){
+  for (int i = 0; i < num_blinks; i++) {
+    digitalWrite(pins.led_pin, HIGH);
+    delay(200);
+    digitalWrite(pins.led_pin, LOW);
+    delay(200);
+  }
+}
 
 void setup() {
-  // put your setup code here, to run once:
+   pinMode(pins.led_pin, OUTPUT);
+   
    pinMode(pins.relay_pin1, OUTPUT);
    pinMode(pins.relay_pin2, OUTPUT);
    pinMode(pins.relay_pin3, OUTPUT);
@@ -49,28 +61,30 @@ void setup() {
 }
 
 void loop() {
+  int btw_pop = rand_btw_pop() * 1000;
+  int len_pop = rand_len_pop() * 100;
 
-  float btw_pop = rand_btw_pop();
-  float len_pop = rand_len_pop();
-  int pick_pin = random(1, 4);
+  blink(1);
+  digitalWrite(pins.relay_pin1, HIGH);
+  delay(len_pop);
+  digitalWrite(pins.relay_pin1, LOW);
+  delay(btw_pop);
 
-  
-  if (pick_pin == 1) {
-    digitalWrite(pins.relay_pin1, HIGH);
-    delay(len_pop);
-    digitalWrite(pins.relay_pin1, LOW);
-    delay(btw_pop);
-  } else if (pick_pin == 2) {
-    digitalWrite(pins.relay_pin2, HIGH);
-    delay(len_pop);
-    digitalWrite(pins.relay_pin2, LOW);
-    delay(btw_pop);
-  } else if (pick_pin == 3) {
-    digitalWrite(pins.relay_pin3, HIGH);
-    delay(len_pop);
-    digitalWrite(pins.relay_pin3, LOW);
-    delay(btw_pop);
-  };
+  btw_pop = rand_btw_pop() * 1000;
+  len_pop = rand_len_pop() * 100;
 
+  blink(2);
+  digitalWrite(pins.relay_pin2, HIGH);
+  delay(len_pop);
+  digitalWrite(pins.relay_pin2, LOW);
+  delay(btw_pop);
 
+  btw_pop = rand_btw_pop() * 1000;
+  len_pop = rand_len_pop() * 100;
+
+  blink(3);
+  digitalWrite(pins.relay_pin3, HIGH);
+  delay(len_pop);
+  digitalWrite(pins.relay_pin3, LOW);
+  delay(btw_pop);
 }
