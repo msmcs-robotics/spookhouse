@@ -24,11 +24,11 @@ struct {
 
 
 struct {
-  int min_btw_pop = 3;
-  int max_btw_pop = 10;
+  int min_btw_pop = 1;
+  int max_btw_pop = 3;
 
   int min_len_pop = 2;
-  int max_len_pop = 5;
+  int max_len_pop = 4;
 } info;
 
 int rand_btw_pop() {
